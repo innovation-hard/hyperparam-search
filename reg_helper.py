@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from matplotlib.colors import ListedColormap
 from sklearn.linear_model import LogisticRegression
-from sklearn.linear_model.logistic import _logistic_loss
+
 from scipy.stats import norm
 
 def get_weights_array(ws):
@@ -178,9 +178,7 @@ def fit_and_get_regions(X_train, y_train, X_test, y_test, degree = 2, lambd = 0,
     # Calculo tambien el score del dataset de entrenamiento para comparar
     score_train_logist_pol = clf_logist_pol.score(X_train_degree, y_train)
     
-    #loss_train = _logistic_loss(clf_logist_pol.coef_, X_train_degree, y_train, 1 / clf_logist_pol.C)
-    #loss_test = _logistic_loss(clf_logist_pol.coef_, X_test_degree, y_test, 1 / clf_logist_pol.C)
-
+    
     # print('Test Accuracy (Exactitud):',score_test_logist_pol)
     # print('Train Accuracy (Exactitud):',score_train_logist_pol)
     # print('coeficientes:', clf_logist_pol.coef_)
@@ -268,15 +266,15 @@ def plot_boundaries_keras(X_train, y_train, score, probability_func, degree=None
     ax.text(xx.max() - .3, yy.min() + .3, ('%.2f' % score).lstrip('0'),
             size=40, horizontalalignment='right')
     
-from keras import regularizers
-from keras.models import Sequential
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras import optimizers
+from tensorflow.keras import regularizers
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
+from tensorflow.keras import optimizers
 from fnn_helper import PlotLosses
-from keras.constraints import max_norm
+from tensorflow.keras.constraints import max_norm
 
 from matplotlib import pyplot as plt
-from keras.callbacks import ModelCheckpoint
+from tensorflow.keras.callbacks import ModelCheckpoint
 
 def get_two_layer_model_L2(input_shape, output_size, hidden_units=10, lr=0.1, l2_lambda=0, decay=0.0, initializer='normal', l1_lambda=0, optim = None, activation='relu', dropout=None, max_norm_value=None):
     model = Sequential()
